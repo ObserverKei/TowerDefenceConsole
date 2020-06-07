@@ -1,6 +1,7 @@
 #include "public.h"
 #include "event.h"
 #include "tower.h"
+#include "enemy.h"
 #include "map.h"
 
 /*	地图函数开始
@@ -81,6 +82,28 @@ int Map::GetTowerHP(string place) {
     return m_towerList[place]->GetHP();
 }
 
+/* 新的敌人数据加入敌人列表 */
+void Map::InsertEnemy(size_t x, size_t y, Enemy &enemy)
+{
+    string tmpPlace(to_string(x) + "," + to_string(y));
+    /* 把敌人插入位置 */
+   m_enemyList[tmpPlace] = &enemy;
+}
+/* 获取当前位置的敌人 */
+Enemy *Map::GetCurEnemy(size_t x, size_t y)
+{
+    string tmpPlace(to_string(x) + "," + to_string(y));
+    /* 返回当前位置的敌人 */
+    return m_enemyList[tmpPlace];
+}
+/* 从敌人列表移除敌人 */
+void Map::EraseEnemy(size_t x, size_t y)
+{
+    string tmpPlace(to_string(x) + "," + to_string(y));
+    /* 从塔列表移除塔 */
+    m_enemyList.erase(tmpPlace);
+}
+
 /*	名称：	控制台调试地图 
 **	功能：	在控制台打印地图 m_map 的内容
 **	传参：	无
@@ -115,10 +138,10 @@ void Map::Show(void)
                 else if (__MAP_CH_TOWER__ == m_map[x][y])
 				{
                     /* 如果是塔，在这里进行操作 */
-                    /* 拼接当前位置信息 */
-                    string tmpPlace(to_string(x) + "," + to_string(y));
+                    /* 从塔列表获取当前塔 */
+                    Tower *pCurTower = this->GetCurTower(x, y);
                     /* 获取当前塔HP */
-                    int currentTowerHP = this->GetTowerHP(tmpPlace);
+                    int currentTowerHP = pCurTower->GetHP();
                     if (currentTowerHP > 0)
                     {
                         printf("%c%d", m_map[x][y], currentTowerHP);
@@ -131,9 +154,12 @@ void Map::Show(void)
                 }// end of else if
                 else if (__MAP_CH_ENEMY__ == m_map[x][y])
                 {
-                    int currentTowerHP = 9;
+                    /* 从敌人列表获取当前敌人 */
+                    Enemy *pCurEnemy = this->GetCurEnemy(x, y);
+                    /* 获取敌人当前HP */
+                    int currentEnemyHP = pCurEnemy->GetHP();
                     /* 这里有什么 */
-                    printf("%c%d", m_map[x][y], currentTowerHP);
+                    printf("%c%d", m_map[x][y], currentEnemyHP);
 
                     /* 如果是敌人，在这里进行操作 */
 

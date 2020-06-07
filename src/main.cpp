@@ -32,8 +32,10 @@ int main(int argc, char *argv[])
             /* 可以构建敌人则生成一个新的敌人 */
             if (Ret > 0)
             {
+                /* 定义一个新的敌人 */
                 Enemy *pNewEnemy = new Enemy;
-                pNewEnemy->Draw(consoleMap);
+                /* 在地图中构建一个新的敌人 */
+                pNewEnemy->Create(consoleMap);
             }
         }
 

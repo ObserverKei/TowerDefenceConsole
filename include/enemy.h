@@ -12,12 +12,16 @@ public:
     Enemy();
     ~Enemy();
     /* 攻击手段 */
+    /* 获取敌人HP */
+    int GetHP(void);
     /* virtual */
     void Attack(void);
-    /* 多种攻击手段 */
-    /* 群体攻击塔 */
-    /* 单体攻击塔 */
-/* 移动 */
+        /* 多种攻击手段 */
+        /* 群体攻击塔 */
+        /* 单体攻击塔 */
+    /* 在地图构建敌人 */
+    void Create(Map &map);
+    /* 移动 */
     void Move(Map &map);
     /*绘制敌人*/
     void Draw(Map &map);
@@ -30,6 +34,10 @@ public:
     Enemy* nextWayPoint() const;
     const Enemy::Point pos() const;
 private:
+    /* 敌人横坐标 */
+    int m_x;
+    /* 敌人纵坐标 */
+    int m_y;
         /* 三种类型 */
     int m_type;				/* 敌人类型 */
         /* 速度快其他弱 */

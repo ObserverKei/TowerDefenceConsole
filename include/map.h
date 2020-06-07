@@ -17,7 +17,7 @@ public:
 	/* 修改地图数据 */
     void SetCh(size_t x, size_t y, char ch);
     char GetCh(size_t x, size_t y);
-    /* 数据加入塔列表 */
+    /* 新塔数据加入塔列表 */
     void InsertTower(size_t x, size_t y, Tower &tower);
     /* 获取当前位置的塔 */
     Tower *GetCurTower(size_t x, size_t y);
@@ -27,6 +27,12 @@ public:
     int GetTowerHP(string place);
     /* 获取敌人剩余构建个数,并使剩余个数减1 */
     int GetEnemyResidueNum(void);
+    /* 新的敌人数据加入敌人列表 */
+    void InsertEnemy(size_t x, size_t y, Enemy &enemy);
+    /* 获取当前位置的敌人 */
+    Enemy *GetCurEnemy(size_t x, size_t y);
+    /* 从敌人列表移除敌人 */
+    void EraseEnemy(size_t x, size_t y);
 private:
     /* 方阵地图 */
     char m_map[__MAP_X_LEN__][__MAP_Y_LEN__];
